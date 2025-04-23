@@ -3,6 +3,7 @@
 namespace Accordous\FcAnalise\Endpoints;
 
 use Accordous\FcAnalise\Enums\IncomeSource;
+use Accordous\FcAnalise\Enums\Product;
 use Illuminate\Validation\Rule;
 
 class SolicitationEndpoint extends Endpoint
@@ -108,7 +109,7 @@ class SolicitationEndpoint extends Endpoint
 
         return [
             'produtos' => [$requiredRule, 'array'],
-            'produtos.*' => ['integer'],
+            'produtos.*' => ['integer', Rule::enum(Product::class)],
 
             'locacao' => [$requiredRule, 'array'],
             'locacao.codigo_imovel' => ['sometimes', 'string'],
