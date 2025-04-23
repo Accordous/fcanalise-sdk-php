@@ -1,17 +1,16 @@
 <?php
 
-use Accordous\FcAnalise\FcAnalise;
-use Accordous\FcAnalise\Enums\PropertyType;
 use Accordous\FcAnalise\Enums\ApplicantType;
-use Illuminate\Support\Facades\Http;
 use Accordous\FcAnalise\Enums\IncomeSource;
+use Accordous\FcAnalise\Enums\PropertyType;
+use Accordous\FcAnalise\FcAnalise;
 
 beforeEach(function () {
     config()->set('fcanalise.base_url', env('FCANALISE_BASE_URL'));
     config()->set('fcanalise.login', env('FCANALISE_LOGIN'));
     config()->set('fcanalise.password', env('FCANALISE_PASSWORD'));
 
-    $this->client = new FcAnalise();
+    $this->client = new FcAnalise;
 });
 
 test('can create solicitation', function () {
@@ -31,8 +30,8 @@ test('can create solicitation', function () {
                 'cidade' => 'Rio de Janeiro',
                 'uf' => 'RJ',
                 'numero' => '30',
-                'complemento' => 'apt 300'
-            ]
+                'complemento' => 'apt 300',
+            ],
         ],
         'pretendente' => [
             'tipo_pretendente' => ApplicantType::TENANT->value,
@@ -42,14 +41,14 @@ test('can create solicitation', function () {
             'renda' => [
                 'principal' => [
                     'origem' => IncomeSource::PUBLIC_SERVANT_CLT->value,
-                    'valor' => $this->faker->randomFloat(2, 1000, 10000)
+                    'valor' => $this->faker->randomFloat(2, 1000, 10000),
                 ],
                 'outra' => [
                     'origem' => IncomeSource::RENTAL_INCOME->value,
-                    'valor' => $this->faker->randomFloat(2, 1000, 10000)
-                ]
-            ]
-        ]
+                    'valor' => $this->faker->randomFloat(2, 1000, 10000),
+                ],
+            ],
+        ],
     ]);
 
     // expect($response['id'])->toBe(123);

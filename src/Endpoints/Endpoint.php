@@ -2,8 +2,8 @@
 
 namespace Accordous\FcAnalise\Endpoints;
 
-use Illuminate\Http\Client\PendingRequest;
 use Accordous\FcAnalise\Requests\ValidatesRequests;
+use Illuminate\Http\Client\PendingRequest;
 
 abstract class Endpoint
 {

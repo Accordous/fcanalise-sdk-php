@@ -19,7 +19,6 @@ class SolicitationEndpoint extends Endpoint
      *  end_date?: string,
      *  filter?: string
      * } $args
-     * @return array
      */
     public function list(array $args = []): array
     {
@@ -42,7 +41,6 @@ class SolicitationEndpoint extends Endpoint
     /**
      * Create a new solicitation
      *
-     * @param array $data
      * @return array{id: int, message: string}
      */
     public function create(array $data): array
@@ -61,9 +59,6 @@ class SolicitationEndpoint extends Endpoint
 
     /**
      * Get solicitation status
-     *
-     * @param int $id
-     * @return array
      */
     public function show(int $id): array
     {
@@ -76,13 +71,8 @@ class SolicitationEndpoint extends Endpoint
         return $response->json();
     }
 
-
     /**
      * Update a single solicitation by ID
-     *
-     * @param int $id
-     * @param array $data
-     * @return array
      */
     public function update(int $id, array $data): array
     {
@@ -95,12 +85,10 @@ class SolicitationEndpoint extends Endpoint
         return $response->json();
     }
 
-
     /**
      * Define validation rules for solicitation data.
      *
-     * @param string $method The HTTP method ('POST' for create, 'PUT' for update)
-     * @return array
+     * @param  string  $method  The HTTP method ('POST' for create, 'PUT' for update)
      */
     protected function rules(string $method = 'POST'): array
     {

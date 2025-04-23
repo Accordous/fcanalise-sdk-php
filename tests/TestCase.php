@@ -2,11 +2,11 @@
 
 namespace Accordous\FcAnalise\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Accordous\FcAnalise\FcAnaliseServiceProvider;
 use Dotenv\Dotenv;
 use Faker\Factory as FakerFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
@@ -19,7 +19,7 @@ class TestCase extends Orchestra
         $this->faker = FakerFactory::create('pt_BR');
 
         Factory::guessFactoryNamesUsing(
-            fn(string $modelName) => 'Accordous\\FcAnalise\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn (string $modelName) => 'Accordous\\FcAnalise\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
@@ -35,11 +35,9 @@ class TestCase extends Orchestra
         config()->set('database.default', 'testing');
 
         // Load environment from .env.testing file
-        if (file_exists(dirname(__DIR__) . '/.env.testing')) {
+        if (file_exists(dirname(__DIR__).'/.env.testing')) {
             Dotenv::createImmutable(dirname(__DIR__), '.env.testing')->load();
         }
-
-
 
         /*
          foreach (\Illuminate\Support\Facades\File::allFiles(__DIR__ . '/database/migrations') as $migration) {

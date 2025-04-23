@@ -4,7 +4,6 @@ namespace Accordous\FcAnalise;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Accordous\FcAnalise\Commands\FcAnaliseCommand;
 
 class FcAnaliseServiceProvider extends PackageServiceProvider
 {

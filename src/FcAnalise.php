@@ -2,16 +2,19 @@
 
 namespace Accordous\FcAnalise;
 
-use Illuminate\Http\Client\PendingRequest;
-use Illuminate\Support\Facades\Http;
 use Accordous\FcAnalise\Endpoints\SolicitationEndpoint;
 use Accordous\FcAnalise\Endpoints\SolicitationReportEndpoint;
+use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Support\Facades\Http;
 
 class FcAnalise
 {
     private PendingRequest $client;
+
     private string $baseUrl;
+
     private string $login;
+
     private string $password;
 
     public function __construct()

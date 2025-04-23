@@ -12,7 +12,7 @@ class SolicitationReportEndpoint extends Endpoint
     /**
      * Retrieves a specific solicitation report.
      *
-     * @param int $id The ID of the solicitation.
+     * @param  int  $id  The ID of the solicitation.
      * @return array The API response.
      */
     public function show(int $id): array
@@ -27,8 +27,8 @@ class SolicitationReportEndpoint extends Endpoint
     /**
      * Stores a new solicitation report.
      *
-     * @param int $id The ID of the solicitation.
-     * @param array $data The data for the new report.
+     * @param  int  $id  The ID of the solicitation.
+     * @param  array  $data  The data for the new report.
      * @return array The API response.
      */
     public function store(int $id, array $data): array
@@ -43,8 +43,8 @@ class SolicitationReportEndpoint extends Endpoint
     /**
      * Updates an existing solicitation report.
      *
-     * @param int $id The ID of the solicitation.
-     * @param array $data The data to update the report with.
+     * @param  int  $id  The ID of the solicitation.
+     * @param  array  $data  The data to update the report with.
      * @return array The API response.
      */
     public function update(int $id, array $data): array
@@ -59,8 +59,8 @@ class SolicitationReportEndpoint extends Endpoint
     /**
      * Generates a printable version of the solicitation report.
      *
-     * @param int $id The ID of the solicitation.
-     * @param string $output The desired output format ('html' or 'pdf'). Defaults to 'html'.
+     * @param  int  $id  The ID of the solicitation.
+     * @param  string  $output  The desired output format ('html' or 'pdf'). Defaults to 'html'.
      * @return array The API response.
      */
     public function print(int $id, $output = 'html'): array
@@ -81,7 +81,7 @@ class SolicitationReportEndpoint extends Endpoint
     /**
      * Generates a PDF version of the solicitation report.
      *
-     * @param int $id The ID of the solicitation.
+     * @param  int  $id  The ID of the solicitation.
      * @return array The API response.
      */
     public function printPdf(int $id): array
@@ -92,8 +92,8 @@ class SolicitationReportEndpoint extends Endpoint
     /**
      * Downloads the solicitation report.
      *
-     * @param int $id The ID of the solicitation.
-     * @param bool $summarized Whether to download a summarized version. Defaults to false.
+     * @param  int  $id  The ID of the solicitation.
+     * @param  bool  $summarized  Whether to download a summarized version. Defaults to false.
      * @return array The API response.
      */
     public function download(int $id, bool $summarized = false): array
@@ -110,7 +110,7 @@ class SolicitationReportEndpoint extends Endpoint
     /**
      * Defines the validation rules for the endpoint methods.
      *
-     * @param string $method The HTTP method ('POST' or 'PUT'). Defaults to 'POST'.
+     * @param  string  $method  The HTTP method ('POST' or 'PUT'). Defaults to 'POST'.
      * @return array An empty array as there are no specific validation rules defined here.
      */
     protected function rules(string $method = 'POST'): array
