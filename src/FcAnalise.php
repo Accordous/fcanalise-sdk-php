@@ -4,7 +4,8 @@ namespace Accordous\FcAnalise;
 
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
-use Accordous\FcAnalise\Resources\SolicitationResource;
+use Accordous\FcAnalise\Endpoints\SolicitationEndpoint;
+use Accordous\FcAnalise\Endpoints\SolicitationReportEndpoint;
 
 class FcAnalise
 {
@@ -34,9 +35,14 @@ class FcAnalise
             ]);
     }
 
-    public function solicitation(): SolicitationResource
+    public function solicitation(): SolicitationEndpoint
     {
-        return new SolicitationResource($this->client);
+        return new SolicitationEndpoint($this->client);
+    }
+
+    public function report(): SolicitationReportEndpoint
+    {
+        return new SolicitationReportEndpoint($this->client);
     }
 
     public function getBaseUrl(): string
