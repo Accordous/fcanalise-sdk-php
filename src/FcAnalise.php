@@ -19,9 +19,9 @@ class FcAnalise
 
     public function __construct()
     {
-        $this->baseUrl = rtrim(config('fcanalise.base_url'), '/');
-        $this->login = config('fcanalise.login');
-        $this->password = config('fcanalise.password');
+        $this->baseUrl = rtrim((string) (config('fcanalise.base_url') ?? ''), '/');
+        $this->login = (string) (config('fcanalise.login') ?? '');
+        $this->password = (string) (config('fcanalise.password') ?? '');
 
         if (empty($this->login) || empty($this->password)) {
             throw new \InvalidArgumentException(
