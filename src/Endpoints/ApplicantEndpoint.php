@@ -2,7 +2,6 @@
 
 namespace Accordous\FcAnalise\Endpoints;
 
-use Accordous\FcAnalise\Enums\PropertyType;
 use Accordous\FcAnalise\Enums\IncomeSource;
 use Illuminate\Validation\Rule;
 
