@@ -81,7 +81,38 @@ class SolicitationEndpoint extends Endpoint
 
         $response = $this->client->put("/solicitation/{$id}", $validatedData);
 
-        // Consider checking $response->successful() or $response->failed() for update
+        if ($response->failed()) {
+            throw new \Exception($response->json('message'));
+        }
+
+        return $response->json();
+    }
+
+    /**
+     * Get available credits
+     */
+    public function credits(): array
+    {
+        $response = $this->client->get('/solicitation/credits');
+
+        if ($response->failed()) {
+            throw new \Exception($response->json('message'));
+        }
+
+        return $response->json();
+    }
+
+    /**
+     * Delete a solicitation
+     */
+    public function delete(int $id): array
+    {
+        $response = $this->client->delete("/solicitation/{$id}");
+
+        if ($response->failed()) {
+            throw new \Exception($response->json('message'));
+        }
+
         return $response->json();
     }
 

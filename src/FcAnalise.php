@@ -2,8 +2,12 @@
 
 namespace Accordous\FcAnalise;
 
+use Accordous\FcAnalise\Endpoints\ApplicantEndpoint;
+use Accordous\FcAnalise\Endpoints\FileEndpoint;
+use Accordous\FcAnalise\Endpoints\ProductEndpoint;
 use Accordous\FcAnalise\Endpoints\SolicitationEndpoint;
 use Accordous\FcAnalise\Endpoints\SolicitationReportEndpoint;
+use Accordous\FcAnalise\Endpoints\WebhookEndpoint;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 
@@ -41,6 +45,26 @@ class FcAnalise
     public function solicitation(): SolicitationEndpoint
     {
         return new SolicitationEndpoint($this->client);
+    }
+
+    public function applicant(): ApplicantEndpoint
+    {
+        return new ApplicantEndpoint($this->client);
+    }
+
+    public function product(): ProductEndpoint
+    {
+        return new ProductEndpoint($this->client);
+    }
+
+    public function file(): FileEndpoint
+    {
+        return new FileEndpoint($this->client);
+    }
+
+    public function webhook(): WebhookEndpoint
+    {
+        return new WebhookEndpoint($this->client);
     }
 
     public function report(): SolicitationReportEndpoint
