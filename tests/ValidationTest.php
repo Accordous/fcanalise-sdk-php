@@ -1,15 +1,9 @@
 <?php
 
-use Accordous\FcAnalise\Endpoints\ApplicantEndpoint;
-use Accordous\FcAnalise\Endpoints\FileEndpoint;
-use Accordous\FcAnalise\Endpoints\ProductEndpoint;
-use Accordous\FcAnalise\Endpoints\SolicitationEndpoint;
-use Accordous\FcAnalise\Endpoints\WebhookEndpoint;
 use Accordous\FcAnalise\Enums\IncomeSource;
 use Accordous\FcAnalise\Enums\Product;
 use Accordous\FcAnalise\Enums\PropertyType;
 use Accordous\FcAnalise\FcAnalise;
-use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
 
@@ -25,13 +19,13 @@ beforeEach(function () {
             'message' => 'Test successful response',
             'data' => [
                 'id' => 123,
-                'status' => 'success'
+                'status' => 'success',
             ],
             'pagination' => [
                 'total' => 1,
-                'current_page' => 1
-            ]
-        ], 200)
+                'current_page' => 1,
+            ],
+        ], 200),
     ]);
 
     $this->client = new FcAnalise;
@@ -42,7 +36,7 @@ describe('SolicitationEndpoint Validation', function () {
     test('create solicitation validates required fields', function () {
         $endpoint = $this->client->solicitation();
 
-        expect(fn() => $endpoint->create([]))
+        expect(fn () => $endpoint->create([]))
             ->toThrow(ValidationException::class);
     });
 
@@ -59,8 +53,8 @@ describe('SolicitationEndpoint Validation', function () {
                     'bairro' => 'Test Bairro',
                     'cidade' => 'Test City',
                     'uf' => 'RJ',
-                    'numero' => '123'
-                ]
+                    'numero' => '123',
+                ],
             ],
             'pretendente' => [
                 'tipo_pretendente' => 'tenant',
@@ -69,10 +63,10 @@ describe('SolicitationEndpoint Validation', function () {
                 'renda' => [
                     'principal' => [
                         'origem' => IncomeSource::PUBLIC_SERVANT_CLT->value,
-                        'valor' => 5000.00
-                    ]
-                ]
-            ]
+                        'valor' => 5000.00,
+                    ],
+                ],
+            ],
         ];
 
         $response = $endpoint->create($validData);
@@ -82,10 +76,10 @@ describe('SolicitationEndpoint Validation', function () {
     test('create solicitation validates produtos array', function () {
         $endpoint = $this->client->solicitation();
 
-        expect(fn() => $endpoint->create([
+        expect(fn () => $endpoint->create([
             'produtos' => 'not_an_array',
             'locacao' => ['tipo_imovel' => PropertyType::RESIDENTIAL->value],
-            'pretendente' => ['tipo_pretendente' => 'tenant', 'nome' => 'Test', 'cpf' => '123']
+            'pretendente' => ['tipo_pretendente' => 'tenant', 'nome' => 'Test', 'cpf' => '123'],
         ]))->toThrow(ValidationException::class);
     });
 
@@ -94,8 +88,8 @@ describe('SolicitationEndpoint Validation', function () {
 
         $partialData = [
             'pretendente' => [
-                'nome' => 'Updated Name'
-            ]
+                'nome' => 'Updated Name',
+            ],
         ];
 
         $response = $endpoint->update(1, $partialData);
@@ -109,7 +103,7 @@ describe('ApplicantEndpoint Validation', function () {
     test('create applicant validates required fields', function () {
         $endpoint = $this->client->applicant();
 
-        expect(fn() => $endpoint->create(1, []))
+        expect(fn () => $endpoint->create(1, []))
             ->toThrow(ValidationException::class);
     });
 
@@ -129,15 +123,15 @@ describe('ApplicantEndpoint Validation', function () {
                     'bairro' => 'Test Bairro',
                     'cidade' => 'Test City',
                     'uf' => 'RJ',
-                    'numero' => '123'
+                    'numero' => '123',
                 ],
                 'renda' => [
                     'principal' => [
                         'origem' => IncomeSource::PUBLIC_SERVANT_CLT->value,
-                        'valor' => 5000.00
-                    ]
-                ]
-            ]
+                        'valor' => 5000.00,
+                    ],
+                ],
+            ],
         ];
 
         $response = $endpoint->create(1, $validData);
@@ -147,13 +141,13 @@ describe('ApplicantEndpoint Validation', function () {
     test('create applicant accepts valid CNPJ applicant', function () {
         $endpoint = $this->client->applicant();
 
-                $validData = [
+        $validData = [
             'produtos' => [Product::FC_REPORT->value],
             'pretendente' => [
                 'tipo_pretendente' => 'company',
                 'razao_social' => 'Test Company Ltda',
-                'cnpj' => '12345678000195'
-            ]
+                'cnpj' => '12345678000195',
+            ],
         ];
 
         $response = $endpoint->create(1, $validData);
@@ -164,11 +158,11 @@ describe('ApplicantEndpoint Validation', function () {
         $endpoint = $this->client->applicant();
 
         // Should fail when neither CPF nor CNPJ data is provided
-        expect(fn() => $endpoint->create(1, [
+        expect(fn () => $endpoint->create(1, [
             'produtos' => [Product::FC_REPORT->value],
             'pretendente' => [
-                'tipo_pretendente' => 'person'
-            ]
+                'tipo_pretendente' => 'person',
+            ],
         ]))->toThrow(ValidationException::class);
     });
 
@@ -181,10 +175,10 @@ describe('ApplicantEndpoint Validation', function () {
                 'renda' => [
                     'principal' => [
                         'origem' => IncomeSource::FREELANCER->value,
-                        'valor' => 6000.00
-                    ]
-                ]
-            ]
+                        'valor' => 6000.00,
+                    ],
+                ],
+            ],
         ];
 
         $response = $endpoint->update(1, 2, $partialData);
@@ -194,7 +188,7 @@ describe('ApplicantEndpoint Validation', function () {
     test('validates income source enum', function () {
         $endpoint = $this->client->applicant();
 
-        expect(fn() => $endpoint->create(1, [
+        expect(fn () => $endpoint->create(1, [
             'produtos' => [Product::FC_REPORT->value],
             'pretendente' => [
                 'tipo_pretendente' => 'person',
@@ -203,10 +197,10 @@ describe('ApplicantEndpoint Validation', function () {
                 'renda' => [
                     'principal' => [
                         'origem' => 'invalid_income_source',
-                        'valor' => 5000.00
-                    ]
-                ]
-            ]
+                        'valor' => 5000.00,
+                    ],
+                ],
+            ],
         ]))->toThrow(ValidationException::class);
     });
 
@@ -228,7 +222,7 @@ describe('ProductEndpoint Validation', function () {
         expect($rules['product_id'])->toContain('integer');
     });
 
-        test('add product method works with valid product ID', function () {
+    test('add product method works with valid product ID', function () {
         $endpoint = $this->client->product();
 
         $response = $endpoint->add(1, 2, Product::FC_REPORT->value);
@@ -256,7 +250,7 @@ describe('FileEndpoint Validation', function () {
     test('validates required file field', function () {
         $endpoint = $this->client->file();
 
-        expect(fn() => $endpoint->add(1, 2, 3, []))
+        expect(fn () => $endpoint->add(1, 2, 3, []))
             ->toThrow(ValidationException::class);
     });
 
@@ -266,7 +260,7 @@ describe('FileEndpoint Validation', function () {
         $validData = [
             'file' => 'dummy_file_content', // In real scenario this would be an uploaded file
             'description' => 'Test document',
-            'document_type' => 'identity'
+            'document_type' => 'identity',
         ];
 
         // Note: This will fail validation in real scenario because 'file' rule expects an actual file
@@ -295,7 +289,7 @@ describe('WebhookEndpoint Validation', function () {
     test('create webhook validates required endpoint', function () {
         $endpoint = $this->client->webhook();
 
-        expect(fn() => $endpoint->create([]))
+        expect(fn () => $endpoint->create([]))
             ->toThrow(ValidationException::class);
     });
 
@@ -306,7 +300,7 @@ describe('WebhookEndpoint Validation', function () {
             'endpoint' => 'https://example.com/webhook',
             'token_url' => 'https://example.com/auth',
             'token_user' => 'webhook_user',
-            'token_password' => 'webhook_password'
+            'token_password' => 'webhook_password',
         ];
 
         $response = $endpoint->create($validData);
@@ -316,8 +310,8 @@ describe('WebhookEndpoint Validation', function () {
     test('validates endpoint URL format', function () {
         $endpoint = $this->client->webhook();
 
-        expect(fn() => $endpoint->create([
-            'endpoint' => 'not_a_valid_url'
+        expect(fn () => $endpoint->create([
+            'endpoint' => 'not_a_valid_url',
         ]))->toThrow(ValidationException::class);
     });
 
@@ -325,7 +319,7 @@ describe('WebhookEndpoint Validation', function () {
         $endpoint = $this->client->webhook();
 
         $minimalData = [
-            'endpoint' => 'https://example.com/webhook'
+            'endpoint' => 'https://example.com/webhook',
         ];
 
         $response = $endpoint->create($minimalData);
