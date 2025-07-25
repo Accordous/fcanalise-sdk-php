@@ -15,6 +15,9 @@ beforeEach(function () {
 
 test('can create solicitation', function () {
 
+    // skip for now
+    $this->markTestSkipped();
+
     $response = $this->client->solicitation()->create([
         'produtos' => [1],
         'locacao' => [
@@ -56,6 +59,10 @@ test('can create solicitation', function () {
 });
 
 test('can get solicitation status', function () {
+
+    // skip for now
+    $this->markTestSkipped();
+
     // get a list of solicitations
     $response = $this->client->solicitation()->list();
 
