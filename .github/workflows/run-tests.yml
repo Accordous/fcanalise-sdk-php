@@ -55,5 +55,11 @@ jobs:
       - name: List Installed Dependencies
         run: composer show -D
 
+      - name: Create .env.testing file
+        run: |
+          echo "FCANALISE_LOGIN=test@example.com" >> .env.testing
+          echo "FCANALISE_PASSWORD=test_password" >> .env.testing
+          echo "FCANALISE_BASE_URL=https://api.test.com" >> .env.testing
+
       - name: Execute tests
         run: vendor/bin/pest --ci
